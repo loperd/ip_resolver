@@ -3,6 +3,7 @@ package ipresolver
 import (
 	"github.com/netinternet/remoteaddr"
 	"net/http"
+	"strings"
 
 	"go.uber.org/zap"
 )
@@ -36,12 +37,19 @@ func (p *Plugin) Init(logger Logger, cfg Configurer) error {
 
 func (p *Plugin) Middleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		originalAddr := r.RemoteAddr
 		ip, port := remoteaddr.Parse().IP(r)
-		if port != "" {
+
+		if strings.ContainsRune(originalAddr, ':') && (port == "" || port == "-1") {
+			parts := strings.Split(originalAddr, ":")
+			port = parts[1]
+		}
+
+		if port != "" && port != "-1" {
 			ip += ":" + port
 		}
 
-		p.log.Info("RewriteAddress from " + r.RemoteAddr + " to " + ip)
+		p.log.Debug("rewrite address from " + originalAddr + " to " + ip)
 
 		r.RemoteAddr = ip
 		next.ServeHTTP(w, r)
