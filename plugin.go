@@ -41,6 +41,8 @@ func (p *Plugin) Middleware(next http.Handler) http.Handler {
 			ip += ":" + port
 		}
 
+		p.log.Info("RewriteAddress from " + r.RemoteAddr + " to " + ip)
+
 		r.RemoteAddr = ip
 		next.ServeHTTP(w, r)
 	})
