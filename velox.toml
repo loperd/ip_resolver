@@ -1,20 +1,19 @@
 [velox]
-build_args = ['-trimpath', '-ldflags', '-s -X github.com/roadrunner-server/roadrunner/v2023/internal/meta.version=v2023.1.4 -X github.com/roadrunner-server/roadrunner/v2023/internal/meta.buildTime=10:00:00']
+build_args = ['-trimpath', '-ldflags', '-s -X github.com/roadrunner-server/roadrunner/v2023/internal/meta.version=${APP_VERSION} -X github.com/roadrunner-server/roadrunner/v2023/internal/meta.buildTime=${TIME}']
 
 [roadrunner]
-ref = "v2023.1.4"
+ref = "v${APP_VERSION}"
 
 [github]
 [github.token]
 token = "${GH_PUBLIC_TOKEN}"
 
 [github.plugins]
-# ref -> master, commit or tag
-logger = { ref = "master", owner = "roadrunner-server", repository = "logger" }
-server = { ref = "master", owner = "roadrunner-server", repository = "server" }
-http = { ref = "master", owner = "roadrunner-server", repository = "http" }
-ip_resolver = { ref = "master", owner = "loperd", repository = "ip_resolver", replace = "/ip_resolver" }
+logger = { ref = "v4.1.7", owner = "roadrunner-server", repository = "logger" }
+http = { ref = "v4.1.11", owner = "roadrunner-server", repository = "http" }
+server = { ref = "v4.1.8", owner = "roadrunner-server", repository = "server" }
+ip_resolver = { ref = "master", owner = "loperd", repository = "ip_resolver" }
 
 [log]
-level = "info"
-mode = "development"
+level = "debug"
+mode = "production"

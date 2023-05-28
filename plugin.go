@@ -26,15 +26,15 @@ type Plugin struct {
 	cfg Configurer
 }
 
-func (p *Plugin) Init(logger Logger, cfg Configurer) error {
+func (p *Plugin) Init(cfg Configurer) error {
 	// construct a named logger for the middleware
-	p.log = logger.NamedLogger(name)
 	p.cfg = cfg
 	return nil
 }
 
 func (p *Plugin) Middleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		ip := "127.0.0.1:12345"
 		p.log.Info("RewriteAddress from " + r.RemoteAddr + " to " + ip)
 
 		r.RemoteAddr = ip
