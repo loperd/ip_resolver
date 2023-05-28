@@ -1,4 +1,4 @@
-module ip-resolver-middleware
+module ip_resolver
 
 go 1.20
 

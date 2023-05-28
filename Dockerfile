@@ -21,8 +21,8 @@ FROM --platform=${TARGETPLATFORM:-linux/amd64} php:8.2-cli
 # copy required files from builder image
 COPY --from=velox /usr/bin/rr /usr/bin/rr
 
-COPY .rr.yaml /app/php
-COPY php /app/php
+COPY php /app/
+COPY .rr.yaml /app/php/
 
 # use roadrunner binary as image entrypoint
 CMD ["/usr/bin/rr", "serve", "-c", "/app/.rr.yaml"]

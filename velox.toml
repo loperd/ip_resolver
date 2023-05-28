@@ -4,12 +4,16 @@ build_args = ['-trimpath', '-ldflags', '-s -X github.com/roadrunner-server/roadr
 [roadrunner]
 ref = "v2023.1.4"
 
+[github]
+[github.token]
+token = ""
+
 [github.plugins]
 # ref -> master, commit or tag
 logger = { ref = "master", owner = "roadrunner-server", repository = "logger" }
 server = { ref = "master", owner = "roadrunner-server", repository = "server" }
 http = { ref = "master", owner = "roadrunner-server", repository = "http" }
-ip_resolver = { ref = "master", owner = "loperd", repository = "ip_resolver", replace = "/ip_resolver" }
+ip_resolver = { ref = "master", owner = "loperd", repository = "ip_resolver" }
 
 [log]
 level = "info"

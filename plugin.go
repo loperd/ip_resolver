@@ -1,4 +1,4 @@
-package ip_resolver_middleware
+package ip_resolver
 
 import (
 	"github.com/netinternet/remoteaddr"
