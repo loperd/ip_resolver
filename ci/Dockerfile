@@ -8,7 +8,7 @@ ARG APP_VERSION="undefined"
 ARG GH_PUBLIC_TOKEN="undefined"
 
 # copy your configuration into the docker
-COPY velox.toml /app
+COPY ci/velox.toml /app
 
 RUN TIME=$(echo $(date +%FT%T%z)) && \
     sed -i -e s/\${APP_VERSION}/${APP_VERSION}/g /app/velox.toml && \
@@ -52,8 +52,8 @@ ENV PERMANENT_DEPS \
 COPY --from=velox /usr/bin/rr /usr/bin/rr
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
-COPY php/* /app/
-COPY .rr.yaml /app/
+COPY ci/php/* /app/
+COPY ci/.rr.yaml /app/
 
 WORKDIR /app
 
