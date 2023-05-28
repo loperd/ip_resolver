@@ -27,8 +27,9 @@ type Plugin struct {
 	cfg Configurer
 }
 
-func (p *Plugin) Init(cfg Configurer) error {
+func (p *Plugin) Init(logger Logger, cfg Configurer) error {
 	// construct a named logger for the middleware
+	p.log = logger.NamedLogger(name)
 	p.cfg = cfg
 	return nil
 }

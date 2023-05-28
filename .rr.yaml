@@ -4,9 +4,8 @@ server:
   command: "php /app/worker.php"
 
 http:
+  middleware: ['ip_resolver']
   address: 0.0.0.0:8080
-  ip_resolver_config:
-    enabled: true
 
 logs:
   level: debug
