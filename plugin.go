@@ -1,4 +1,4 @@
-package ip_resolver
+package ipresolver
 
 import (
 	"github.com/netinternet/remoteaddr"
@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	name = "ip_resolver"
+	name = "ipresolver"
 )
 
 type Configurer interface {

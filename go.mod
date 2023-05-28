@@ -1,4 +1,4 @@
-module github.com/loperd/ip_resolver
+module github.com/loperd/ipresolver
 
 go 1.20
 

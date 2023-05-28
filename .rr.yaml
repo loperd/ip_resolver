@@ -4,7 +4,7 @@ server:
   command: "php /app/worker.php"
 
 http:
-  middleware: ['ip_resolver']
+  middleware: ['ipresolver']
   address: 0.0.0.0:8080
 
 logs:
