@@ -1,12 +1,8 @@
-module ip_resolver
+module github.com/loperd/ip_resolver
 
 go 1.20
 
-require (
-	github.com/roadrunner-server/api/v2 v2.23.0
-	github.com/roadrunner-server/errors v1.2.0
-	go.uber.org/zap v1.24.0
-)
+require go.uber.org/zap v1.24.0
 
 require (
 	github.com/netinternet/remoteaddr v0.0.0-20211208125013-432b11cac01e // indirect
