@@ -12,7 +12,7 @@ token = "${GH_PUBLIC_TOKEN}"
 logger = { ref = "v4.1.7", owner = "roadrunner-server", repository = "logger" }
 http = { ref = "v4.1.11", owner = "roadrunner-server", repository = "http" }
 server = { ref = "v4.1.8", owner = "roadrunner-server", repository = "server" }
-ip_resolver = { ref = "master", owner = "loperd", repository = "ip_resolver" }
+ip_resolver = { ref = "v0.1.0", owner = "loperd", repository = "ip_resolver" }
 
 [log]
 level = "debug"
