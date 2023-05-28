@@ -23,13 +23,48 @@ ENV CGO_ENABLED=0
 # RUN build
 RUN vx build -c /app/velox.toml -o /usr/bin/
 
-FROM --platform=${TARGETPLATFORM:-linux/amd64} php:8.2-cli
+FROM composer:2.5.7 AS composer
+FROM --platform=${TARGETPLATFORM:-linux/amd64} php:8.2-cli-alpine
+
+# persistent / runtime deps
+ENV PHPIZE_DEPS \
+    build-base \
+    autoconf \
+    libc-dev \
+    pcre-dev \
+    pkgconf \
+    cmake \
+    file \
+    re2c \
+    g++ \
+    gcc
+
+# permanent deps
+ENV PERMANENT_DEPS \
+    linux-headers \
+    oniguruma-dev \
+    gettext-dev \
+    libzip-dev \
+    icu-dev \
+    libintl
 
 # copy required files from builder image
 COPY --from=velox /usr/bin/rr /usr/bin/rr
+COPY --from=composer /usr/bin/composer /usr/bin/composer
 
-COPY php /app/
-COPY .rr.yaml /app/php/
+COPY php/* /app/
+COPY .rr.yaml /app/
+
+WORKDIR /app
+
+RUN apk add --no-cache ${PERMANENT_DEPS} && \
+    apk add --no-cache --virtual .build-deps ${PHPIZE_DEPS} && \
+    CFLAGS="$CFLAGS -D_GNU_SOURCE" docker-php-ext-install -j$(nproc) \
+        mbstring \
+        sockets \
+    && \
+    composer install && \
+    apk del .build-deps
 
 # use roadrunner binary as image entrypoint
 CMD ["/usr/bin/rr", "serve", "-c", "/app/.rr.yaml"]
