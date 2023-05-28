@@ -1,0 +1,13 @@
+version: '2.7'
+
+server:
+  command: "php worker.php"
+
+http:
+  address: 0.0.0.0:8080
+  ip_resolver_config:
+    enabled: true
+
+logs:
+  level: debug
+  mode: development
