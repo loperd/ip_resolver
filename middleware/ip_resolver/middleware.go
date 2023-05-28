@@ -1,7 +1,6 @@
 package ip_resolver
 
 import (
-	"github.com/netinternet/remoteaddr"
 	"net/http"
 
 	"go.uber.org/zap"
@@ -36,11 +35,6 @@ func (p *Plugin) Init(logger Logger, cfg Configurer) error {
 
 func (p *Plugin) Middleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		ip, port := remoteaddr.Parse().IP(r)
-		if port != "" {
-			ip += ":" + port
-		}
-
 		p.log.Info("RewriteAddress from " + r.RemoteAddr + " to " + ip)
 
 		r.RemoteAddr = ip
